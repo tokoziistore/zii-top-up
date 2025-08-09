@@ -1,0 +1,54 @@
+[
+  {
+    "id": "mlbb",
+    "nama": "Mobile Legends",
+    "gambar": "assets/img/mlbb.jpg",
+    "diamond": [
+      {"jumlah": "3 DM", "harga": 2000},
+      {"jumlah": "5 DM", "harga": 3000},
+      {"jumlah": "10 DM", "harga": 5000},
+      {"jumlah": "12 DM", "harga": 6000},
+      {"jumlah": "14 DM", "harga": 7000},
+      {"jumlah": "18 DM", "harga": 8000},
+      {"jumlah": "19 DM", "harga": 9000},
+      {"jumlah": "28 DM", "harga": 10000},
+      {"jumlah": "36 DM", "harga": 11000},
+      {"jumlah": "44 DM", "harga": 13000},
+      {"jumlah": "56 DM", "harga": 17000},
+      {"jumlah": "59 DM", "harga": 18000},
+      {"jumlah": "85 DM", "harga": 24000},
+      {"jumlah": "100 DM", "harga": 28000},
+      {"jumlah": "144 DM", "harga": 40000},
+      {"jumlah": "185 DM", "harga": 51000},
+      {"jumlah": "222 DM", "harga": 60000},
+      {"jumlah": "355 DM", "harga": 95000},
+      {"jumlah": "408 DM", "harga": 110000},
+      {"jumlah": "500 DM", "harga": 140000}
+    ]
+  },
+  {
+    "id": "freefire",
+    "nama": "Free Fire",
+    "gambar": "assets/img/freefire.jpg"
+  },
+  {
+    "id": "pubgm",
+    "nama": "PUBG Mobile",
+    "gambar": "assets/img/pubgm.jpg"
+  },
+  {
+    "id": "genshin",
+    "nama": "Genshin Impact",
+    "gambar": "assets/img/genshin.jpg"
+  },
+  {
+    "id": "valo",
+    "nama": "Valorant",
+    "gambar": "assets/img/valorant.jpg"
+  },
+  {
+    "id": "codm",
+    "nama": "Call of Duty Mobile",
+    "gambar": "assets/img/codm.jpg"
+  }
+]

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Top-Up</title>
+  <link rel="stylesheet" href="assets/css/topup.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .back-button {
+      display: inline-block;
+      margin: 20px 0;
+      background-color: #007bff;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0, 123, 255, 0.2);
+    }
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <main class="topup-container">
+    <a href="index.html" class="back-button">← Kembali ke Beranda</a>
+
+    <h2>Formulir Top-Up</h2>
+    <form id="topupForm">
+      <label for="nickname">Nickname:</label>
+      <input type="text" id="nickname" required>
+
+      <label for="userId">ID Pengguna:</label>
+      <input type="text" id="userId" required>
+
+      <label for="server">Server:</label>
+      <input type="text" id="server" required>
+
+      <label for="diamond">Jumlah Diamond:</label>
+      <select id="diamond" required>
+        <option value="">Memuat pilihan...</option>
+      </select>
+
+      <label for="payment">Metode Pembayaran:</label>
+      <select id="payment" required>
+        <option value="">Pilih</option>
+        <option value="Dana">Dana</option>
+        <option value="OVO">OVO</option>
+        <option value="Gopay">Gopay</option>
+        <option value="Transfer Bank">Transfer Bank</option>
+      </select>
+
+      <button type="submit">Kirim Pesanan</button>
+    </form>
+
+    <div id="notif" style="margin-top: 20px; display: none; color: green;"></div>
+  </main>
+
+  <script>
+    const form = document.getElementById("topupForm");
+    const diamondSelect = document.getElementById("diamond");
+    const user = localStorage.getItem("loggedInUser");
+    const gameId = localStorage.getItem("selectedGameId");
+    let selectedGameData = null;
+
+    if (!user) window.location.href = "login.html";
+
+    let chats = JSON.parse(localStorage.getItem("chats")) || {};
+    if (!chats[user]) chats[user] = [];
+
+    fetch("data/games.json")
+      .then(res => res.json())
+      .then(games => {
+        selectedGameData = games.find(game => game.id === gameId);
+
+        if (selectedGameData?.diamond?.length) {
+          diamondSelect.innerHTML = `<option value="">Pilih</option>`;
+          selectedGameData.diamond.forEach(opt => {
+            const option = document.createElement("option");
+            option.value = `${opt.jumlah}|${opt.harga}`;
+            option.textContent = `${opt.jumlah} - Rp${opt.harga.toLocaleString()}`;
+            diamondSelect.appendChild(option);
+          });
+        } else {
+          diamondSelect.innerHTML = `<option value="">Tidak tersedia</option>`;
+        }
+      })
+      .catch(() => {
+        diamondSelect.innerHTML = `<option value="">Gagal memuat</option>`;
+      });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nickname = document.getElementById("nickname").value.trim();
+      const userId = document.getElementById("userId").value.trim();
+      const server = document.getElementById("server").value.trim();
+      const payment = document.getElementById("payment").value;
+      const diamondValue = diamondSelect.value;
+
+      if (!nickname || !userId || !server || !payment || !diamondValue) {
+        alert("⚠️ Semua kolom harus diisi!");
+        return;
+      }
+
+      const [jumlahDiamond, hargaDiamond] = diamondValue.split("|");
+      const orderSummary = 
+`📦 *Pesanan Top-Up Baru*
+🎮 Game: ${selectedGameData?.nama || gameId}
+👤 Nickname: ${nickname}
+🆔 ID: ${userId} (Server: ${server})
+💎 Diamond: ${jumlahDiamond}
+💰 Harga: Rp${Number(hargaDiamond).toLocaleString()}
+💳 Pembayaran: ${payment}
+⏳ Status: *Menunggu diproses admin*`;
+
+      const pesan = {
+        sender: "user",
+        text: orderSummary,
+        time: new Date().toLocaleString(),
+      };
+
+      chats[user].push(pesan);
+      localStorage.setItem("chats", JSON.stringify(chats));
+
+      const notif = document.getElementById("notif");
+      notif.style.display = "block";
+      notif.textContent = "✅ Pesanan berhasil dikirim. Silakan cek halaman Chat untuk info lebih lanjut.";
+
+      form.reset();
+      setTimeout(() => window.location.href = "chat.html", 3000);
+    });
+  </script>
+</body>
+</html>

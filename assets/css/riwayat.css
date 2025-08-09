@@ -1,0 +1,61 @@
+/* ✅ riwayat.css - Codashop Style */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f4f4;
+    color: #333;
+  }
+  
+  .riwayat-header {
+    background-color: #2575fc;
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .riwayat-header h2 {
+    margin: 0;
+  }
+  
+  .riwayat-header button {
+    background-color: #fff;
+    color: #2575fc;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .riwayat-header button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  #riwayat-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  
+  .transaksi-item {
+    background-color: #fff;
+    border-left: 5px solid #2575fc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  
+  .transaksi-item h3 {
+    margin: 0 0 0.5rem;
+    color: #2575fc;
+  }
+  
+  .transaksi-item p {
+    margin: 0.2rem 0;
+    font-size: 0.95rem;
+  }
+  

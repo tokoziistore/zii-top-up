@@ -1,0 +1,19 @@
+[
+  {
+    "kode": "PROMO10",
+    "deskripsi": "Diskon 10% untuk semua game!",
+    "diskon": 10
+  },
+  {
+    "kode": "FREE5K",
+    "deskripsi": "Potongan Rp5.000 untuk transaksi di atas Rp50.000",
+    "potongan": 5000,
+    "min_transaksi": 50000
+  },
+  {
+    "kode": "GRATISONGKIR",
+    "deskripsi": "Gratis biaya admin untuk top-up pertama",
+    "gratis_admin": true,
+    "syarat": "topup_pertama"
+  }
+]

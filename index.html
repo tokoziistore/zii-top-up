@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Top-Up Game | Codashop Style</title>
+  <link rel="stylesheet" href="assets/css/index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .blur-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(6px);
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 99;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .warning-box {
+      background-color: #fff5f5;
+      color: #b00020;
+      border: 2px solid #b00020;
+      border-radius: 12px;
+      padding: 30px 40px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      max-width: 90%;
+      width: 400px;
+      z-index: 100;
+      font-family: 'Segoe UI', sans-serif;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+    .warning-box h2 { margin-top: 0; font-size: 1.4rem; }
+    .warning-box p { font-size: 1rem; margin: 10px 0; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .chat-link {
+      margin-left: 10px;
+      background: #f0f0f0;
+      padding: 5px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #333;
+      transition: 0.3s;
+    }
+    .chat-link:hover {
+      background: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand">🎮 zii top up  </div>
+    <div class="user-actions">
+      <span id="user-info"></span>
+      <button onclick="logout()">Logout</button>
+      <a href="chat.html" class="chat-link">💬 Chat</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Pilih Game Favoritmu</h1>
+      <p>Top-up instan & terpercaya</p>
+    </section>
+    <section class="game-grid" id="game-list"></section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Top-Up Game. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const username = localStorage.getItem("loggedInUser");
+    const userInfo = document.getElementById("user-info");
+    const gameList = document.getElementById("game-list");
+
+    if (!username) {
+      let countdown = 5;
+      gameList.innerHTML = `
+      <div class="blur-overlay">
+        <div class="warning-box">
+          <h2>⚠️ Mohon Login</h2>
+          <p>Anda harus login atau daftar terlebih dahulu.</p>
+          <p>Mengalihkan ke halaman login dalam <span id="countdown">${countdown}</span> detik...</p>
+        </div>
+      </div>`;
+      const interval = setInterval(() => {
+        countdown--;
+        document.getElementById("countdown").textContent = countdown;
+        if (countdown === 0) {
+          clearInterval(interval);
+          window.location.href = "login.html";
+        }
+      }, 1000);
+      document.querySelector(".user-actions").style.display = "none";
+    } else {
+      userInfo.textContent = `👋 Halo, ${username}`;
+      fetch("data/games.json")
+        .then(response => response.json())
+        .then(games => {
+          gameList.innerHTML = "";
+          games.forEach(game => {
+            const card = document.createElement("div");
+            card.className = "game-card";
+            card.innerHTML = `
+              <img src="${game.gambar}" alt="${game.nama}" />
+              <h3>${game.nama}</h3>
+              <button onclick="startTopUp('${game.id}')">Top Up</button>
+            `;
+            gameList.appendChild(card);
+          });
+        })
+        .catch(err => {
+          gameList.innerHTML = "<p>Gagal memuat daftar game.</p>";
+          console.error(err);
+        });
+    }
+
+    function startTopUp(gameId) {
+      localStorage.setItem("selectedGameId", gameId);
+      window.location.href = "topup.html";
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+/* ✅ index.css - Halaman Utama Top-Up Game ala Codashop */
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #2d98da;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-actions button {
+  padding: 6px 12px;
+  background-color: #ffffff;
+  color: #2d98da;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.25s ease;
+}
+
+.user-actions button:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+/* Intro */
+.intro {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+.intro h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.intro p {
+  margin-top: 10px;
+  color: #555;
+}
+
+/* Grid Game */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Kartu Game */
+.game-card {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+  text-align: center;
+  padding: 12px;
+}
+
+.game-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.game-card img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.game-card h3 {
+  margin: 10px 0 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Tombol Top Up di Kartu Game */
+.game-card button {
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #2d98da, #38b6ff);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s ease-in-out;
+}
+
+.game-card button:hover {
+  background: linear-gradient(135deg, #38b6ff, #2d98da);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(45, 152, 218, 0.3);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #ecf0f1;
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 40px;
+}
+
+/* Peringatan jika belum login */
+.warning {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  background-color: #ffecec;
+  color: #d8000c;
+  border: 1px solid #d8000c;
+  border-radius: 10px;
+  margin: 40px auto;
+  max-width: 500px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .game-card button {
+      padding: 5px 10px;
+      font-size: 0.85rem;
+      border-radius: 6px;
+  }
+}

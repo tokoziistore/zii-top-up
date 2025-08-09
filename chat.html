@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chat Transaksi</title>
+  <link rel="stylesheet" href="assets/css/chat.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    .back-button {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      background-color: #f5f5f5;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 10px;
+      font-size: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background 0.3s;
+      z-index: 10;
+    }
+    .back-button:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <aside class="sidebar">
+      <h2>💬 Chat Transaksi</h2>
+    </aside>
+
+    <main class="chat-main">
+      <!-- Tombol kembali -->
+      <button class="back-button" onclick="window.location.href='index.html'">← Kembali ke Beranda</button>
+
+      <div id="chatBox" class="chat-box"></div>
+      <div id="previewContainer" class="preview-container"></div>
+
+      <form id="chatForm" class="chat-form">
+        <label for="fileInput" class="file-label">📎</label>
+        <input type="file" id="fileInput" accept="image/*" hidden />
+        <input type="text" id="messageInput" placeholder="Tulis pesan..." autocomplete="off" />
+        <button type="submit">➤</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="assets/js/chat.js"></script>
+</body>
+</html>

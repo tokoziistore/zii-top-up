@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/css/admin.css" />
+  <style>
+    @media (max-width: 768px) {
+      .mobile-toggle {
+        display: inline-block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+
+      .mobile-user-list {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100%;
+        background: #005f52;
+        color: white;
+        z-index: 999;
+        padding: 20px;
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+        transition: left 0.3s ease;
+      }
+
+      .mobile-user-list.open {
+        left: 0;
+      }
+
+      .mobile-user-list .mobile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .mobile-user-list button {
+        background: none;
+        border: none;
+        font-size: 22px;
+        color: white;
+        cursor: pointer;
+      }
+
+      #userListMobile li {
+        background: #017d6b;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+
+      #userListMobile li:hover {
+        background: #01937e;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .mobile-toggle,
+      .mobile-user-list {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <!-- Sidebar untuk desktop -->
+    <aside class="sidebar">
+      <h2>👨‍💻 Admin Panel</h2>
+      <ul id="userList"></ul>
+    </aside>
+
+    <!-- Slide menu user list untuk mobile -->
+    <div id="mobileUserList" class="mobile-user-list">
+      <div class="mobile-header">
+        <h3>👥 Pilih Pengguna</h3>
+        <button id="closeMobileList">✕</button>
+      </div>
+      <ul id="userListMobile"></ul>
+    </div>
+
+    <main class="chat-area">
+      <div class="chat-header">
+        <h3 id="currentUser">Pilih Pengguna</h3>
+        <button id="toggleUserListBtn" class="mobile-toggle">⋮</button>
+        <button id="deleteChatBtn" disabled>🗑️ Hapus Chat</button>
+        <button id="markDone" disabled>✅ Tandai Selesai</button>
+      </div>
+
+      <div id="chatBox" class="chat-box"></div>
+
+      <div class="chat-input">
+        <input type="text" id="adminMsg" placeholder="Tulis pesan..." />
+        <button onclick="sendAdminMsg()">Kirim</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/js/admin.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggleBtn = document.getElementById("toggleUserListBtn");
+      const mobileList = document.getElementById("mobileUserList");
+      const closeBtn = document.getElementById("closeMobileList");
+      const listDesktop = document.getElementById("userList");
+      const listMobile = document.getElementById("userListMobile");
+
+      // Sinkronisasi daftar user dari desktop ke mobile dan pasang event klik
+      const syncUserList = () => {
+        listMobile.innerHTML = "";
+        listDesktop.querySelectorAll("li").forEach(li => {
+          const username = li.dataset.username;
+          const item = document.createElement("li");
+          item.textContent = username;
+          item.onclick = () => {
+            loadUserChat(username);
+            mobileList.classList.remove("open");
+          };
+          listMobile.appendChild(item);
+        });
+      };
+
+      toggleBtn.addEventListener("click", () => {
+        syncUserList();
+        mobileList.classList.toggle("open");
+      });
+
+      closeBtn.addEventListener("click", () => {
+        mobileList.classList.remove("open");
+      });
+    });
+  </script>
+</body>
+</html>
